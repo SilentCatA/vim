@@ -118,7 +118,6 @@ if !has('gui_running')
 endif
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'zenburn',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -182,4 +181,4 @@ set writebackup
 
 set clipboard=unnamed "use system clipboard
 
-set tabstop=4
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab

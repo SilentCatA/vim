@@ -27,8 +27,8 @@ Plugin 'scrooloose/nerdtree'
 "Git interaction
 Plugin 'tpope/vim-fugitive'
 
-"Powerline
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Lightine
+Plugin 'itchyny/lightline.vim'
 
 "Add an undo tree or "super <u>"
 Bundle 'sjl/gundo.vim.git'
@@ -112,14 +112,21 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 	"close vim if nerdtree is only window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"Powerline support
-set laststatus=2 " Always display the statusline in all windows
-set showtabline=2 " Always display the tabline, even if there is only one tab
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set rtp+=/usr/share/powerline/bindings/vim/
-set t_Co=256
-let g:Powerline_symbols = "fancy"
-
+"Lightline support
+if !has('gui_running')
+  set t_Co=256
+endif
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'zenburn',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 "toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
 if has('python3')
